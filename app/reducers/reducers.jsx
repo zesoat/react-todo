@@ -1,3 +1,6 @@
+let uuid = require('node-uuid');
+let moment = require('moment');
+
 export let searchTextReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_SEARCH_TEXT':
@@ -15,3 +18,21 @@ export let showCompletedReducer = (state = false, action) => {
       return state;
   }
 };
+
+export let todosReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [
+        ...state,
+        {
+          id: uuid(),
+          text: action.text,
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
+        }
+      ];
+    default:
+      return state;
+  }
+}
